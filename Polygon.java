@@ -1,6 +1,10 @@
 import java.lang.Math;
 
-public class Polygon {
+interface ComparePoly { 
+    boolean ComesBefore(Polygon o); // true if this < param 
+}
+
+public class Polygon implements ComparePoly{
 
     private Point[] points;
     private int sides;
@@ -18,6 +22,13 @@ public class Polygon {
 
     public int getSides(){
         return sides;
+    }
+
+    public boolean ComesBefore(Polygon poly){
+        if(poly.polygonArea() < polygonArea()){
+            return true;
+        }
+        return false;
     }
     
     public String polygonString(){
@@ -50,9 +61,4 @@ public class Polygon {
         }
         return distance;
     }
-
-    public interface ComparePoly { 
-        boolean ComesBefore(Object o); // true if this < param 
-    }
-
 }
