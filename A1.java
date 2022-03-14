@@ -7,6 +7,7 @@ public class A1 {
         Scanner scnr = new Scanner(data);
 
         MyPolygons l1 = new MyPolygons();
+        MyPolygons l2 = new MyPolygons();
         String polyData = "";
         
         while(scnr.hasNext()){
@@ -27,7 +28,10 @@ public class A1 {
             }
         }
 
+        System.out.println("Unsorted list");
         System.out.println(l1.print());
+        System.out.println("Sorted list");
+        System.out.println(l2.print());
 
     }
 }
