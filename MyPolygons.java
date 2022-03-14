@@ -1,5 +1,4 @@
-
-public class MyPolygons {
+public class MyPolygons{
     
     private int count;
     private Node sentinel;    
@@ -12,7 +11,7 @@ public class MyPolygons {
         curr = null;
     }
 
-    private class Node{
+    public class Node{
         private Polygon data;
         private Node next;
         private Node prev;
@@ -49,44 +48,57 @@ public class MyPolygons {
     }
 
     public void prepend(Polygon newPoly){
-        Node newNode = new Node(newPoly);
+        curr = new Node(newPoly);
         if(count == 0){
-            sentinel.setNext(newNode);
-            sentinel.setPrev(newNode);
-            newNode.setNext(sentinel);
-            newNode.setPrev(sentinel);
+            sentinel.setNext(curr);
+            sentinel.setPrev(curr);
+            curr.setNext(sentinel);
+            curr.setPrev(sentinel);
             count++;
             return;
         }
 
-        newNode.setNext(sentinel.getNext());
-        newNode.setPrev(sentinel);
-        sentinel.getNext().setPrev(newNode);
-        sentinel.setNext(newNode);
+        curr.setNext(sentinel.getNext());
+        curr.setPrev(sentinel);
+        sentinel.getNext().setPrev(curr);
+        sentinel.setNext(curr);
         count++;        
     }
 
     public void append(Polygon newPoly){
-        Node newNode = new Node(newPoly);
+        curr = new Node(newPoly);
         if(count == 0){
-            sentinel.setNext(newNode);
-            sentinel.setPrev(newNode);
-            newNode.setNext(sentinel);
-            newNode.setPrev(sentinel);
+            sentinel.setNext(curr);
+            sentinel.setPrev(curr);
+            curr.setNext(sentinel);
+            curr.setPrev(sentinel);
             count++;
             return;
         }
 
-        newNode.setNext(sentinel);
-        newNode.setPrev(sentinel.getPrev());
-        sentinel.getPrev().setNext(newNode);
-        sentinel.setPrev(newNode);
+        curr.setNext(sentinel);
+        curr.setPrev(sentinel.getPrev());
+        sentinel.getPrev().setNext(curr);
+        sentinel.setPrev(curr);
         count++;
         return;
         
     }
 
-    public void insert(double area){
+    public void insert(Polygon data, Node target){
+        curr = sentinel.getNext();
+        while(curr != target || curr != sentinel){
+            curr = curr.getNext();
+        }
+        if(curr == sentinel){
+            System.out.println("Not Found");
+            return;
+        }
+        Node newNode = new Node(data);
+        newNode.setNext(curr);
+        newNode.setPrev(curr.getPrev());
+        curr.getPrev().setNext(newNode);
+        curr.setPrev(newNode);
     }
 
     public String print(){
