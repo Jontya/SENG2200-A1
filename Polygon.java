@@ -40,13 +40,19 @@ public class Polygon {
         return area;
     }
 
+    public double distanceFromOrigin(){
+        double distance = 0;
+        for(int i = 0; i < points.length; i++){
+            double temp = Math.sqrt(Math.pow((points[i].getx() - 0), 2) + Math.pow((points[i].gety() - 0), 2));
+            if(temp < distance || i == 0){
+                distance = temp;
+            }
+        }
+        return distance;
+    }
+
     public interface ComparePoly { 
         boolean ComesBefore(Object o); // true if this < param 
     }
 
-    public double distanceFromOrigin(){
-        double distance = 0;
-        return distance;
-    }
-    
 }

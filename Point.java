@@ -1,3 +1,4 @@
+import java.lang.Math;
 public class Point {
 
     private double xcord;
@@ -9,8 +10,7 @@ public class Point {
     }
 
     public double distanceFromOrigin(){
-        double distance = 0;
-        return distance;
+        return Math.sqrt(Math.pow((xcord - 0), 2) + Math.pow((ycord - 0), 2));
     }
 
     public String coordinatesString(){
