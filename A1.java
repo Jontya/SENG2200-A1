@@ -2,15 +2,26 @@ import java.io.File;
 import java.util.Scanner;
 
 public class A1 {
+
+    private static String filename;
+    private MyPolygons l1 = new MyPolygons(); // Unsorted List
+    private MyPolygons l2 = new MyPolygons(); // Sorted List
+
     public static void main(String args[]) throws Exception{
-        File data = new File(args[0]);
-        Scanner scanner = new Scanner(data);
+        try{
+            filename = args[0];
+            A1 polygons = new A1();
+            polygons.readFile();
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Couldn't Find File");
+        }
+    }
 
-        MyPolygons l1 = new MyPolygons(); // Unsorted List
-        MyPolygons l2 = new MyPolygons(); // Sorted List
-
+    public void readFile() throws Exception{
+        Scanner scanner = new Scanner(new File(filename));
         String polyData = ""; // Each polygon string is stored here
-        
+
         while(scanner.hasNext()){ // While file still has content
             String next = scanner.next(); // Next token is stored
             char ch = next.charAt(0);
@@ -29,11 +40,8 @@ public class A1 {
                 }
             }
         }
-        
-        // Prints output to console
-        System.out.println("Unsorted list");
-        System.out.print(l1.print());
-        System.out.println("Sorted list");
-        System.out.print(l2.print());
+
+        System.out.println("Unsorted list\n" + l1.print() + "Sorted list\n" + l2.print());
     }
 }
+
