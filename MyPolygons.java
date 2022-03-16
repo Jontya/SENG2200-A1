@@ -1,3 +1,5 @@
+import javax.xml.crypto.Data;
+
 public class MyPolygons{
     
     private int count;
@@ -47,7 +49,7 @@ public class MyPolygons{
         }
     }
 
-    public void prepend(Polygon newPoly){
+    public void prepend(Polygon newPoly){ // add to head
         curr = new Node(newPoly);
         if(count == 0){
             sentinel.setNext(curr);
@@ -65,7 +67,7 @@ public class MyPolygons{
         count++;        
     }
 
-    public void append(Polygon newPoly){
+    public void append(Polygon newPoly){ // add to tail
         curr = new Node(newPoly);
         if(count == 0){
             sentinel.setNext(curr);
@@ -85,20 +87,35 @@ public class MyPolygons{
         
     }
 
-    public void insert(Polygon data, Node target){
-        curr = sentinel.getNext();
-        while(curr != target || curr != sentinel){
-            curr = curr.getNext();
-        }
-        if(curr == sentinel){
-            System.out.println("Not Found");
+    public void insertBefore(Polygon data, Node target){
+        if(target == sentinel){
             return;
         }
-        Node newNode = new Node(data);
-        newNode.setNext(curr);
-        newNode.setPrev(curr.getPrev());
-        curr.getPrev().setNext(newNode);
-        curr.setPrev(newNode);
+        curr = new Node(data);
+        curr.setNext(target);
+        curr.setPrev(target.getPrev());
+        target.getPrev().setNext(curr);
+        target.setPrev(curr);
+        count++;
+    }
+
+    public void insertInOrder(Polygon data){
+        if(count == 0){
+            prepend(data);
+            return;
+        }
+        curr = sentinel.getNext();
+        for(int i = 0; i < count; i++){
+            if(data.polygonArea() <= curr.getData().polygonArea()){
+                insertBefore(data, curr);
+                return;
+            }
+            else if(i+1 == count){
+                append(data);
+                return;
+            }
+            curr = curr.getNext();
+        }
     }
 
     public String print(){
