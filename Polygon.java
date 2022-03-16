@@ -60,10 +60,10 @@ public class Polygon implements ComparePoly{
         return area;
     }
 
-    public double distanceFromOrigin(){ // Calculates the closest point from (0, 0)
+    public double distanceFromOrigin(){ // Finds the closest point to (0, 0)
         double distance = 0;
         for(int i = 0; i < points.length; i++){
-            double temp = Math.sqrt(Math.pow((points[i].getx() - 0), 2) + Math.pow((points[i].gety() - 0), 2)); // Equation to get the distance
+            double temp = points[0].distanceFromOrigin();
             if(temp < distance || i == 0){
                 distance = temp;
             }

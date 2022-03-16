@@ -9,11 +9,11 @@ public class Point {
         ycord = y;
     }
 
-    public double distanceFromOrigin(){
+    public double distanceFromOrigin(){ // Calculates a points distance from (0, 0)
         return Math.sqrt(Math.pow((xcord - 0), 2) + Math.pow((ycord - 0), 2));
     }
 
-    public String coordinatesString(){
+    public String coordinatesString(){ // Clean string for a point "(x, y)"
         return "(" + String.format("%.2f", xcord) + " , " + String.format("%.2f", ycord) + ")" ;
     }
 
