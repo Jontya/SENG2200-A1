@@ -8,6 +8,7 @@ public class A1 {
 
         MyPolygons l1 = new MyPolygons();
         MyPolygons l2 = new MyPolygons();
+
         String polyData = "";
         
         while(scnr.hasNext()){
@@ -15,6 +16,7 @@ public class A1 {
             char ch = next.charAt(0);
             if(ch == 80 && polyData.length() != 0){
                 l1.append(new Polygon(polyData));
+                l2.insertInOrder(new Polygon(polyData));
                 polyData = "";
             }
             else{
@@ -23,15 +25,15 @@ public class A1 {
                 }
                 if(!scnr.hasNext()){
                     l1.append(new Polygon(polyData));
+                    l2.insertInOrder(new Polygon(polyData));
                 }
-                
             }
         }
-
+        
         System.out.println("Unsorted list");
-        System.out.println(l1.print());
+        System.out.print(l1.print());
         System.out.println("Sorted list");
-        System.out.println(l2.print());
+        System.out.print(l2.print());
 
     }
 }
