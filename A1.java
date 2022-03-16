@@ -3,11 +3,13 @@ import java.util.Scanner;
 
 public class A1 {
 
-    private static String filename;
+    private static String filename; 
     private MyPolygons l1 = new MyPolygons(); // Unsorted List
     private MyPolygons l2 = new MyPolygons(); // Sorted List
 
     public static void main(String args[]) throws Exception{
+
+        // Checks to see if file name exists
         try{
             filename = args[0];
             A1 polygons = new A1();
