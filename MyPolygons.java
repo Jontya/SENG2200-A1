@@ -1,5 +1,3 @@
-import java.util.concurrent.Semaphore;
-
 public class MyPolygons{
     
     private int count;
@@ -10,7 +8,7 @@ public class MyPolygons{
         sentinel = new Node();
 
         count = 0;
-        curr = null;
+        curr = sentinel;
     }
 
     public class Node{
@@ -49,15 +47,11 @@ public class MyPolygons{
         }
     }
 
-    public void moveCurrNext(){ // Moves curr to the next node
+    public void next(){ // Moves curr to the next node
         curr = curr.getNext();
     }
 
-    public void moveCurrPrev(){ // Moves curr to the prev node
-        curr = curr.getPrev(); 
-    }
-
-    public void moveCurrStart(){
+    public void resetCurrent(){ // Resets curr to the start of the list
         curr = sentinel;
     }
 
@@ -99,12 +93,13 @@ public class MyPolygons{
         
     }
 
-    public void removeFromHead(){ // Removes from head
+    public void remove(){ // Removes from head
         if(count == 0){ // If list is empty (excluding the sentinel) the method ends
             return;
         }
 
-        curr = sentinel.getNext();
+        resetCurrent();
+        next();
         sentinel.setNext(curr.getNext()); // Sets new links
         curr.getNext().setPrev(sentinel);
 
@@ -114,42 +109,15 @@ public class MyPolygons{
         count--; // Count decreases by one
     }
 
-    public void removeFromTail(){ // Removes from tail
-        if(count == 0){ // If list is empty (excluding the sentinel) the method ends
+    public void insert(Polygon data){ // Inserts a node before the current node
+        if(curr == sentinel){ // If the target is the sentinel the function cancels 
             return;
         }
-
-        curr = sentinel.getPrev();
-        sentinel.setPrev(curr.getPrev()); // Sets new links
-        curr.getPrev().setNext(sentinel);
-        
-        curr.setNext(null); // Sets links to null
-        curr.setPrev(null);
-
-        count--; // Count decreases by one
-    }
-
-    public void insertBefore(Polygon data, Node target){ // Inserts a node before a target node
-        if(target == sentinel){ // If the target is the sentinel the function cancels 
-            return;
-        }
-        curr = new Node(data); // Creates a new node
-        curr.setNext(target); // Sets all of the links between each node
-        curr.setPrev(target.getPrev());
-        target.getPrev().setNext(curr);
-        target.setPrev(curr);
-        count++; // Count increases by one
-    }
-
-    public void insertAfter(Polygon data, Node target){ // Inserts a node after a target node
-        if(target == sentinel){ // If the target is the sentinel the function cancels 
-            return;
-        }
-        curr = new Node(data); // Creates a new node
-        curr.setNext(target.getNext()); // Sets all of the links between each node
-        curr.setPrev(target);
-        target.getNext().setPrev(curr);
-        target.setNext(curr);
+        Node temp = new Node(data); // Creates a new node
+        temp.setNext(curr); // Sets all of the links between each node
+        temp.setPrev(curr.getPrev());
+        curr.getPrev().setNext(temp);
+        curr.setPrev(temp);
         count++; // Count increases by one
     }
 
@@ -158,27 +126,28 @@ public class MyPolygons{
             prepend(data);
             return;
         }
-        moveCurrStart();
-        moveCurrNext();
+        resetCurrent();
+        next();
         for(int i = 0; i < count; i++){ // Cycles through the list
             if(data.comesBefore(curr.getData())){ // Uses the comesBefore method to determine if the node should be placed before the current node
-                insertBefore(data, curr);
+                insert(data);
                 return;
             }
             else if(i+1 == count){ // If the new nodes area is larger than every other node in the list it is added to the tail
                 append(data);
                 return;
             }
-            moveCurrNext(); // Moves the current node to the next node in the list
+            next(); // Moves the current node to the next node in the list
         }
     }
 
     public String print(){ // Returns a string to be printed with all polygons in a list
         String out = "";
-        curr = sentinel.getNext();
+        resetCurrent();
+        next();
         for(int i = 0; i < count; i++){ // For each item
             out += curr.getData().polygonString(); // Adds the polygon data to the string
-            moveCurrNext(); // Moves curr to the next node in the list
+            next(); // Moves curr to the next node in the list
         }
         return out; // Returns the string
     }
