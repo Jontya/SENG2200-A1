@@ -16,12 +16,18 @@ public class A1 {
             polygons.readFile();
         }
         catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Couldn't Find File");
+            System.out.println("Missing Filename Argument");
         }
     }
 
     public void readFile() throws Exception{
-        Scanner scanner = new Scanner(new File(filename));
+        File file = new File(filename);
+        if(!file.exists()){
+            System.out.println("File Not Found");
+            return;
+        }
+        
+        Scanner scanner = new Scanner(file);
         String polyData = ""; // Each polygon string is stored here
 
         while(scanner.hasNext()){ // While file still has content
