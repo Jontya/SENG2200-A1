@@ -1,9 +1,5 @@
 import java.lang.Math;
 
-interface ComparePoly { 
-    boolean comesBefore(Polygon o);
-}
-
 public class Polygon implements ComparePoly{
 
     // Array of points and the number of sides
@@ -33,19 +29,19 @@ public class Polygon implements ComparePoly{
             return true; // returns true
         }
         else if(percentDifference <= 0.1){ // If polygons percent difference is < 0.1%
-            if(distanceFromOrigin() < poly.distanceFromOrigin()){ // And the target polygons distance from (0,0) is < the target
+            if(leastDistanceFromOrigin() < poly.leastDistanceFromOrigin()){ // And the target polygons distance from (0,0) is < the target
                 return true; // Returns true
             }
         }
         return false;
     }
     
-    public String polygonString(){ // Puts all of the points into a readable string along with the polygons area
+    public String toString(){ // Puts all of the points into a readable string along with the polygons area
         String polygon = "[";
         for(int i = 0; i < points.length; i++){
-            polygon = polygon + points[i].coordinatesString() + " ";
+            polygon = polygon + points[i].toString() + " ";
         }
-        polygon = polygon + "]: " + String.format("%.2f", polygonArea()) + "\n";
+        polygon = polygon + "]: " + String.format("%6.2f", polygonArea()) + "\n";
         return polygon;
     }
 
@@ -60,7 +56,7 @@ public class Polygon implements ComparePoly{
         return area;
     }
 
-    public double distanceFromOrigin(){ // Finds the closest point to (0, 0)
+    public double leastDistanceFromOrigin(){ // Finds the closest point to (0, 0)
         double distance = 0;
         for(int i = 0; i < points.length; i++){
             double temp = points[0].distanceFromOrigin();
