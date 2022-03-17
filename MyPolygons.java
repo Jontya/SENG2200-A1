@@ -6,45 +6,11 @@ public class MyPolygons{
 
     public MyPolygons(){ // default constructor to create the sentinel node
         sentinel = new Node();
+        sentinel.setNext(sentinel);
+        sentinel.setPrev(sentinel);
 
         count = 0;
         curr = sentinel;
-    }
-
-    public class Node{
-        private Polygon data;
-        private Node next;
-        private Node prev;
-
-        public Node(){
-            data = null;
-            next = sentinel;
-            prev = sentinel;
-        }
-
-        public Node(Polygon _data){
-            data = _data;
-        }
-
-        public Node getNext(){
-            return next;
-        }
-
-        public Node getPrev(){
-            return prev;
-        }
-
-        public Polygon getData(){
-            return data;
-        }
-
-        public void setNext(Node _next){
-            next = _next;
-        }
-
-        public void setPrev(Node _prev){
-            prev = _prev;
-        }
     }
 
     public void next(){ // Moves curr to the next node
@@ -56,39 +22,45 @@ public class MyPolygons{
     }
 
     public void prepend(Polygon newPoly){ // Adds to the head of list
-        curr = new Node(newPoly);
+        resetCurrent();
+        Node temp = new Node(newPoly);
         if(count == 0){ // If list is empty (not including the sentinel)
-            sentinel.setNext(curr); // Sets all of the links between the sentinel and new node
-            sentinel.setPrev(curr);
-            curr.setNext(sentinel);
-            curr.setPrev(sentinel);
+            curr.setNext(temp); // Sets all of the links between the sentinel and new node
+            curr.setPrev(temp);
+            temp.setNext(curr);
+            temp.setPrev(curr);
             count++; // Count increases by one
+            next(); // Sets curr as the first node in the list
             return;
         }
 
-        curr.setNext(sentinel.getNext()); // Sets all of links between the sentinel and previous head
-        curr.setPrev(sentinel);
-        sentinel.getNext().setPrev(curr);
-        sentinel.setNext(curr);
+        temp.setNext(curr.getNext()); // Sets all of links between the sentinel and previous head
+        temp.setPrev(curr);
+        curr.getNext().setPrev(temp);
+        curr.setNext(temp);
+        next(); // Sets curr as the first node in the list
         count++; // Count increases by one    
     }
 
     public void append(Polygon newPoly){ // Adds to the tail of list
-        curr = new Node(newPoly);
+        resetCurrent();
+        Node temp = new Node(newPoly);
         if(count == 0){ // If list is empty (not including the sentinel)
-            sentinel.setNext(curr); // Sets all of the links between the sentinel and new node
-            sentinel.setPrev(curr);
-            curr.setNext(sentinel);
-            curr.setPrev(sentinel);
+            curr.setNext(temp); // Sets all of the links between the sentinel and new node
+            curr.setPrev(temp);
+            temp.setNext(curr);
+            temp.setPrev(curr);
+            next(); // Sets curr as the first node in the list
             count++; // Count increases by one
             return;
         }
 
-        curr.setNext(sentinel); // Sets all of links between the sentinel and previous tail
-        curr.setPrev(sentinel.getPrev());
-        sentinel.getPrev().setNext(curr);
-        sentinel.setPrev(curr);
+        temp.setNext(curr); // Sets all of links between the sentinel and previous tail
+        temp.setPrev(curr.getPrev());
+        curr.getPrev().setNext(temp);
+        curr.setPrev(temp);
         count++; // Count increases by one
+        next(); // Sets curr as the first node in the list
         return;
         
     }
@@ -146,7 +118,7 @@ public class MyPolygons{
         resetCurrent();
         next();
         for(int i = 0; i < count; i++){ // For each item
-            out += curr.getData().polygonString(); // Adds the polygon data to the string
+            out += curr.getData().toString(); // Adds the polygon data to the string
             next(); // Moves curr to the next node in the list
         }
         return out; // Returns the string
