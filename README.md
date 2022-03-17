@@ -1,7 +1,7 @@
 # SENG2200 Programming Languages and Paradigms
 ## Assignment 1 (Due: 18/03/22)
 
-### Problem Statements
+### Problem Statement
 You  are  to  write  a  program  for  a  Stock  and  Station  Agent  based  in  Denman,  NSW.    Your 
 program will be used to compare different land parcels for their value and how appropriate they 
 are  for  particular  types  of  agriculture  as  well  as  soil  conservation  and  possible  pasture 
@@ -37,3 +37,7 @@ ou do not have to worry about any of the data being missing, or out of order.
   - next Method (Moves current to the next node)
   - resetCurrent Method (Resets current to the sentinel node)
   - remove Method (removes an item from the head of the list)
+
+### Running Program
+``` javac A1.java ```
+``` java A1 "filename" ```
