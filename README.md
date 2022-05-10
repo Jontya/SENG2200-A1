@@ -1,12 +1,13 @@
 # SENG2200 Programming Languages and Paradigms
-## Assignment 1 (Due: 29/04/22)
+## Assignment 1 (Due: 18/03/22)
 
 ### Problem Statement
-Parse and store differen shapes (Circles, Polygons and Semi-Circles) into a doubly linked list. This list
-uses a single sentinel node and implements a generic list iterator. The iterator will be used to traverse the
-list and add to a second sorted linked list (sorted into descending order with respect to their shape area) and
-print both lists to the console.
+Read polygon specs from the start to end of a file specified from the first command line argument.
+Parse and store each polygon specification. A polygon will be specified in the input by 
+the letter P, followed by the  number of sides the polygon has, and then pairs of numbers which 
+represent the respective vertices on the Cartesian plane (x-value then y-value).
+You do not have to worry about any of the data being missing, or out of order.
 
 ### Running Program
-``` javac A2.java ```
-``` java A2 "filename" ```
+``` javac A1.java ```
+``` java A1 "filename" ```
